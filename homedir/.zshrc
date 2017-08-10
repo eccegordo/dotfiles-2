@@ -1,55 +1,78 @@
-# Path to your oh-my-zsh configuration.
-export ZSH=$HOME/.dotfiles/oh-my-zsh
-# if you want to use this, change your non-ascii font to Droid Sans Mono for Awesome
-# POWERLEVEL9K_MODE='awesome-patched'
-export ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-# https://github.com/bhilburn/powerlevel9k#customizing-prompt-segments
-# https://github.com/bhilburn/powerlevel9k/wiki/Stylizing-Your-Prompt
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir nvm vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
-# colorcode test
-# for code ({000..255}) print -P -- "$code: %F{$code}This is how your text would look like%f"
-POWERLEVEL9K_NVM_FOREGROUND='000'
-POWERLEVEL9K_NVM_BACKGROUND='072'
-POWERLEVEL9K_SHOW_CHANGESET=true
-#export ZSH_THEME="random"
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set to this to use case-sensitive completion
-export CASE_SENSITIVE="true"
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/gordonpotter/.dotfiles/oh-my-zsh
+# ZSH_THEME="random"
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="amuse"
+# ZSH_THEME="peepcode"
+# ZSH_THEME="eastwood"
+# ZSH_THEME="itchy"
+$ZSH_CUSTOM="spaceship"
 
-# disable weekly auto-update checks
-# export DISABLE_AUTO_UPDATE="true"
 
-# disable colors in ls
-# export DISABLE_LS_COLORS="true"
+# CASE_SENSITIVE="true"
+# HYPHEN_INSENSITIVE="true"
+# DISABLE_AUTO_UPDATE="true"
+# export UPDATE_ZSH_DAYS=13
+# DISABLE_LS_COLORS="true"
+# DISABLE_AUTO_TITLE="true"
+# ENABLE_CORRECTION="true"
+COMPLETION_WAITING_DOTS="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+# HIST_STAMPS="mm/dd/yyyy"
 
-# disable autosetting terminal title.
-export DISABLE_AUTO_TITLE="true"
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.dotfiles/oh-my-zsh/plugins/*)
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(colorize compleat dirpersist autojump git gulp history cp)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git bundler osx rake ruby)
 
 source $ZSH/oh-my-zsh.sh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# ssh
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-source /usr/local/opt/nvm/nvm.sh
+export PATH=$PATH:/usr/local/bin
+export PATH="$PATH:$(brew --prefix)/bin"
+export PATH="$PATH:$HOME/.yarn/bin"
+export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 
-autoload -U add-zsh-hook
-load-nvmrc() {
-  if [[ -f .nvmrc && -r .nvmrc ]]; then
-    nvm use &> /dev/null
-  elif [[ $(nvm version) != $(nvm version default)  ]]; then
-    nvm use default &> /dev/null
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/code
 
-# Customize to your needs...
-unsetopt correct
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-# run fortune on new terminal :)
-fortune
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
+
+alias reload!='. ~/.zshrc'
+alias cls='clear' # Good 'ol Clear Screen command
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+alias itermgo='itermocil' # launch iterm with specific configuration
+alias goto='itermocil' # launch iterm with specific configuration
+
+# Ember CLI
+# Visit http://www.ember-cli.com/ to view user guide
+
+alias es='ember serve'
+alias ea='ember addon'
+alias eb='ember build'
+alias ed='ember destroy'
+alias eg='ember generate'
+alias eh='ember help'
+alias ein='ember init'
+alias ei='ember install'
+alias et='ember test'
+alias eu='ember update'
+
+# version
+alias ev='ember version'
+
+source "/Users/gordonpotter/.dotfiles/oh-my-zsh/custom/themes/spaceship.zsh-theme"
