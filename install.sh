@@ -404,12 +404,13 @@ sudo tmutil disablelocal;ok
 # running "Disable hibernation (speeds up entering sleep mode)"
 # sudo pmset -a hibernatemode 0;ok
 
-running "Remove the sleep image file to save disk space"
-sudo rm -rf /Private/var/vm/sleepimage;ok
-running "Create a zero-byte file instead"
-sudo touch /Private/var/vm/sleepimage;ok
-running "…and make sure it can’t be rewritten"
-sudo chflags uchg /Private/var/vm/sleepimage;ok
+## GORDON EDIT
+# running "Remove the sleep image file to save disk space"
+# sudo rm -rf /Private/var/vm/sleepimage;ok
+# running "Create a zero-byte file instead"
+# sudo touch /Private/var/vm/sleepimage;ok
+# running "…and make sure it can’t be rewritten"
+# sudo chflags uchg /Private/var/vm/sleepimage;ok
 
 #running "Disable the sudden motion sensor as it’s not useful for SSDs"
 # sudo pmset -a sms 0;ok
@@ -474,8 +475,10 @@ sudo chflags uchg /Private/var/vm/sleepimage;ok
 ################################################
 bot "Standard System Changes"
 ################################################
-running "always boot in verbose mode (not MacOS GUI mode)"
-sudo nvram boot-args="-v";ok
+
+## GORDON EDIT
+# running "always boot in verbose mode (not MacOS GUI mode)"
+# sudo nvram boot-args="-v";ok
 
 running "allow 'locate' command"
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist > /dev/null 2>&1;ok
@@ -489,29 +492,30 @@ sudo nvram SystemAudioVolume=" ";ok
 running "Menu bar: disable transparency"
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false;ok
 
-running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
-for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-  defaults write "${domain}" dontAutoLoad -array \
-    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-    "/System/Library/CoreServices/Menu Extras/Volume.menu" \
-    "/System/Library/CoreServices/Menu Extras/User.menu"
-done;
-defaults write com.apple.systemuiserver menuExtras -array \
-  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-  "/System/Library/CoreServices/Menu Extras/Clock.menu"
-ok
+## GORDON EDIT
+# running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
+# for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
+#   defaults write "${domain}" dontAutoLoad -array \
+#     "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+#     "/System/Library/CoreServices/Menu Extras/Volume.menu" \
+#     "/System/Library/CoreServices/Menu Extras/User.menu"
+# done;
+# defaults write com.apple.systemuiserver menuExtras -array \
+#   "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+#   "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+#   "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+#   "/System/Library/CoreServices/Menu Extras/Clock.menu"
+# ok
 
-running "Set highlight color to green"
-defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600";ok
+# running "Set highlight color to green"
+# defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600";ok
 
 running "Set sidebar icon size to medium"
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2;ok
 
-running "Always show scrollbars"
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always";ok
-# Possible values: `WhenScrolling`, `Automatic` and `Always`
+# running "Always show scrollbars"
+# defaults write NSGlobalDomain AppleShowScrollBars -string "Always";ok
+# # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
 running "Increase window resize speed for Cocoa applications"
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001;ok
@@ -524,14 +528,14 @@ running "Expand print panel by default"
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true;ok
 
-running "Save to disk (not to iCloud) by default"
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false;ok
+# running "Save to disk (not to iCloud) by default"
+# defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false;ok
 
 running "Automatically quit printer app once the print jobs complete"
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true;ok
 
-running "Disable the “Are you sure you want to open this application?” dialog"
-defaults write com.apple.LaunchServices LSQuarantine -bool false;ok
+# running "Disable the “Are you sure you want to open this application?” dialog"
+# defaults write com.apple.LaunchServices LSQuarantine -bool false;ok
 
 running "Remove duplicates in the “Open With” menu (also see 'lscleanup' alias)"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user;ok
@@ -555,11 +559,11 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 running "Restart automatically if the computer freezes"
 sudo systemsetup -setrestartfreeze on;ok
 
-running "Never go into computer sleep mode"
-sudo systemsetup -setcomputersleep Off > /dev/null;ok
+# running "Never go into computer sleep mode"
+# sudo systemsetup -setcomputersleep Off > /dev/null;ok
 
-running "Check for software updates daily, not just once per week"
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1;ok
+# running "Check for software updates daily, not just once per week"
+# defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1;ok
 
 # running "Disable Notification Center and remove the menu bar icon"
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist > /dev/null 2>&1;ok
@@ -586,8 +590,8 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightC
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true;ok
 
-running "Disable 'natural' (Lion-style) scrolling"
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false;ok
+# running "Disable 'natural' (Lion-style) scrolling"
+# defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false;ok
 
 running "Increase sound quality for Bluetooth headphones/headsets"
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40;ok
@@ -614,8 +618,8 @@ defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true;ok
 
-running "Disable auto-correct"
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false;ok
+# running "Disable auto-correct"
+# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false;ok
 
 ###############################################################################
 bot "Configuring the Screen"
@@ -625,14 +629,14 @@ running "Require password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0;ok
 
-running "Save screenshots to the desktop"
-defaults write com.apple.screencapture location -string "${HOME}/Desktop";ok
+# running "Save screenshots to the desktop"
+# defaults write com.apple.screencapture location -string "${HOME}/Desktop";ok
 
-running "Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)"
-defaults write com.apple.screencapture type -string "png";ok
+# running "Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)"
+# defaults write com.apple.screencapture type -string "png";ok
 
-running "Disable shadow in screenshots"
-defaults write com.apple.screencapture disable-shadow -bool true;ok
+# running "Disable shadow in screenshots"
+# defaults write com.apple.screencapture disable-shadow -bool true;ok
 
 running "Enable subpixel font rendering on non-Apple LCDs"
 defaults write NSGlobalDomain AppleFontSmoothing -int 2;ok
@@ -769,8 +773,8 @@ defaults write com.apple.dock autohide-delay -float 0;ok
 running "Remove the animation when hiding/showing the Dock"
 defaults write com.apple.dock autohide-time-modifier -float 0;ok
 
-running "Automatically hide and show the Dock"
-defaults write com.apple.dock autohide -bool true;ok
+# running "Automatically hide and show the Dock"
+# defaults write com.apple.dock autohide -bool true;ok
 
 running "Make Dock icons of hidden applications translucent"
 defaults write com.apple.dock showhidden -bool true;ok
@@ -794,15 +798,15 @@ bot "Configuring Hot Corners"
 # 11: Launchpad
 # 12: Notification Center
 
-running "Top left screen corner → Mission Control"
-defaults write com.apple.dock wvous-tl-corner -int 2
-defaults write com.apple.dock wvous-tl-modifier -int 0;ok
-running "Top right screen corner → Desktop"
-defaults write com.apple.dock wvous-tr-corner -int 4
-defaults write com.apple.dock wvous-tr-modifier -int 0;ok
-running "Bottom right screen corner → Start screen saver"
-defaults write com.apple.dock wvous-br-corner -int 5
-defaults write com.apple.dock wvous-br-modifier -int 0;ok
+# running "Top left screen corner → Mission Control"
+# defaults write com.apple.dock wvous-tl-corner -int 2
+# defaults write com.apple.dock wvous-tl-modifier -int 0;ok
+# running "Top right screen corner → Desktop"
+# defaults write com.apple.dock wvous-tr-corner -int 4
+# defaults write com.apple.dock wvous-tr-modifier -int 0;ok
+# running "Bottom right screen corner → Start screen saver"
+# defaults write com.apple.dock wvous-br-corner -int 5
+# defaults write com.apple.dock wvous-br-modifier -int 0;ok
 
 ###############################################################################
 bot "Configuring Safari & WebKit"
@@ -858,16 +862,16 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false;ok
 running "Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app"
 defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" -string "@\\U21a9";ok
 
-running "Display emails in threaded mode, sorted by date (oldest at the top)"
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date";ok
+# running "Display emails in threaded mode, sorted by date (oldest at the top)"
+# defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
+# defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
+# defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date";ok
 
-running "Disable inline attachments (just show the icons)"
-defaults write com.apple.mail DisableInlineAttachmentViewing -bool true;ok
+# running "Disable inline attachments (just show the icons)"
+# defaults write com.apple.mail DisableInlineAttachmentViewing -bool true;ok
 
-running "Disable automatic spell checking"
-defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled";ok
+# running "Disable automatic spell checking"
+# defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled";ok
 
 ###############################################################################
 bot "Spotlight"
@@ -988,8 +992,8 @@ bot "Address Book, Dashboard, iCal, TextEdit, and Disk Utility"
 running "Enable the debug menu in Address Book"
 defaults write com.apple.addressbook ABShowDebugMenu -bool true;ok
 
-running "Enable Dashboard dev mode (allows keeping widgets on the desktop)"
-defaults write com.apple.dashboard devmode -bool true;ok
+# running "Enable Dashboard dev mode (allows keeping widgets on the desktop)"
+# defaults write com.apple.dashboard devmode -bool true;ok
 
 running "Use plain text mode for new TextEdit documents"
 defaults write com.apple.TextEdit RichText -int 0;ok
@@ -1015,24 +1019,24 @@ defaults write com.apple.appstore ShowDebugMenu -bool true;ok
 bot "Messages"
 ###############################################################################
 
-running "Disable automatic emoji substitution (i.e. use plain text smileys)"
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false;ok
+# running "Disable automatic emoji substitution (i.e. use plain text smileys)"
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false;ok
 
-running "Disable smart quotes as it’s annoying for messages that contain code"
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false;ok
+# running "Disable smart quotes as it’s annoying for messages that contain code"
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false;ok
 
-running "Disable continuous spell checking"
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false;ok
+# running "Disable continuous spell checking"
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false;ok
 
 ###############################################################################
 bot "SizeUp.app"
 ###############################################################################
 
-running "Start SizeUp at login"
-defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true;ok
+# running "Start SizeUp at login"
+# defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true;ok
 
-running "Don’t show the preferences window on next start"
-defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false;ok
+# running "Don’t show the preferences window on next start"
+# defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false;ok
 
 killall cfprefsd
 
