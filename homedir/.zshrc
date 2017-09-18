@@ -1,5 +1,13 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="$PATH:/Users/gordonpotter/code/emc/ist-v3/ist-maintenance/bin"
+
+export PATH=$PATH:/usr/local/bin
+export PATH="$PATH:$(brew --prefix)/bin"
+export PATH="$PATH:$HOME/.yarn/bin"
+export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
+
+
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/gordonpotter/.dotfiles/oh-my-zsh
@@ -36,11 +44,6 @@ source $ZSH/oh-my-zsh.sh
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-export PATH=$PATH:/usr/local/bin
-export PATH="$PATH:$(brew --prefix)/bin"
-export PATH="$PATH:$HOME/.yarn/bin"
-export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/code
